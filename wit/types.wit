@@ -1,0 +1,74 @@
+interface types {
+
+  use jabratech:common/types.{greeks, side};
+    /**
+     * Record representing a request to get trade list
+     * - code: response code for validation
+     * - message: description of the response
+     * - data: list of trades
+     */
+    record active-positions-response {
+      code: s16,
+      message: string,
+      positions: list<active-position>,
+      atm-risk-slide: atm-risk-slide,
+      agg-bumped-greeks: table-data,
+    }
+  
+    /**
+     * Record representing a request to get active positions
+     * - user-email: email of the user
+     * - pairs: list of pairs, if the value is None, it will return all active positions on all pairs
+     * - party-a: counter party as a source of the position
+     * - party-b: list of counterparties, if the value is None, it will return all active positions
+     */
+    record active-positions-request {
+      user-email: string,
+      pair: u8,
+      spot: f64,
+      party-a: u8,
+      party-b: option<list<u8>>,
+      bump: option<f64>,
+      include-other-delta: bool
+    }
+
+    record active-position {
+      id: s64,
+      group-id: string,
+      counterparty-name: string,
+      instrument-name: string,
+      amount: f64,
+      side: side,
+      r2: f64,
+      inception-price: f64,
+      ttm: f64,
+      iv: f64,
+      current-price: f64,
+      greeks: greeks,
+      pnl: f64,
+      pnl-percentage: f64,
+      last-updated: string,
+      expiration-date: string
+    }
+
+    record atm-risk-slide {
+      spot: f64,
+      greeks: greeks,
+      pnl: f64
+    }
+    record table-data {
+      data: list<table-row>
+    }
+    record table-row {
+      name: string,
+      values: list<f64>
+    }
+    record bumped-greeks {
+      spot: list<f64>,
+      delta: list<f64>,
+      gamma: list<f64>,
+      theta: list<f64>,
+      vega: list<f64>,
+    }
+  }
+  
