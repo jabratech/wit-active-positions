@@ -1,7 +1,7 @@
 interface types {
 
   use jabratech:common/types.{greeks, side};
-  use jabratech:exercised-interests/types.{exercised-interest};
+  use jabratech:exercised-interests/types.{exercised-interests};
     /**
      * Record representing a request to get trade list
      * - code: response code for validation
@@ -14,7 +14,7 @@ interface types {
       positions: list<active-position>,
       atm-risk-slide: atm-risk-slide,
       agg-bumped-greeks: table-data,
-      exercised-interests: exercised-interest
+      exercised-interests: exercised-interests
     }
   
     /**
